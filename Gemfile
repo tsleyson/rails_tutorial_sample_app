@@ -5,6 +5,7 @@ gem 'rails', '3.2.13'
 
 gem 'bootstrap-sass'
 
+gem 'bcrypt', '~> 3.1.2'
 gem 'bcrypt-ruby', '~> 3.1.2'
 
 gem 'factory_girl_rails', '~> 4.2.1'
