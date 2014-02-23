@@ -7,6 +7,10 @@ gem 'bootstrap-sass'
 
 gem 'bcrypt', '~> 3.1.2'
 
+gem 'factory_girl_rails', '~> 4.2.1'
+
+gem 'strong_parameters', '~> 0.2.0'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
