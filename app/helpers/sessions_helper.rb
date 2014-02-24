@@ -16,7 +16,7 @@ module SessionsHelper
     # Rails blows away the value of current_user between pages, so we have to
     # retrieve it by looking up the user's current remember token.
     remember_token = User.encrypt(cookies[:remember_token])
-    @current_user ||= User.find_by_remember_token(remember_token)
+    @current_user ||= User.where(remember_token: remember_token)
     # No find_by(rt:) in Rails 3.
     # ||= sets @current_user if @current_user is undefined.
   end
