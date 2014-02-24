@@ -6,6 +6,8 @@ gem 'rails', '3.2.13'
 gem 'bootstrap-sass'
 
 #gem 'bcrypt', '~> 3.0.0'
+# Using a newer version causes some conflict with Heroku, so let it
+# use whatever version it wants.
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'factory_girl_rails', '~> 4.2.1'

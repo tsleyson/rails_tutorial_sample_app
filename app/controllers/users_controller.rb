@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     # Rails 4. Rails 3 needs the strong_parameters gem to do this.
     if @user.save
+      sign_in @user
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user
     else
