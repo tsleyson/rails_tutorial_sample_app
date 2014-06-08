@@ -27,3 +27,4 @@ end
 
 #SampleApp::Application.config.secret_key_base = secure_token
 SampleApp::Application.config.secret_token = secure_token
+SampleApp::Application.config.secret_key_base = "c7e5387cba8c45984b9f93ace124284c4d54af2a870f08b91e7483cab421419b8c7b4b6f273b9130f0450a870ac75b8a02dca21e3ad01c05d21520f181a4acce"
