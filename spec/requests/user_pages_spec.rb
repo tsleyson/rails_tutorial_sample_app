@@ -60,6 +60,7 @@ describe "UserPages" do
     end
 
     describe "page" do
+      # save_and_open_page  Opens current page in browser.
       it { should have_content("Update your profile") }
       it { should have_title("Edit user") }
       it { should have_link("change", href: "http://gravatar.com/emails") }
