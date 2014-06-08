@@ -2,11 +2,43 @@ require 'spec_helper'
 
 describe "UserPages" do
     subject { page }
-    describe "signup page" do
-      before { visit signup_path }
+  describe "index" do
+    before(:each) do # runs before every test
+      sign_in FactoryGirl.create(:user)
+      FactoryGirl.create(:user, name: "Bob", email: "bob@example.com")
+      FactoryGirl.create(:user, name: "Ben", email: "ben@example.com")
+      visit users_path
+    end
 
-      it { should have_content('Sign up') }
-      it { should have_title(full_title('Sign up')) }
+    it { should have_title('All users') }
+    it { should have_content('All users') }
+
+    describe "pagination" do
+      before(:all) { 30.times { FactoryGirl.create(:user) } }
+      after(:all) { User.delete_all }
+      # Run once before all tests and once after.
+
+      it { should have_selector('div.pagination') }
+
+      it "should list each user" do
+        User.paginate(page: 1).each do |user|
+          expect(page).to have_selector('li', text: user.name)
+        end
+      end
+    end
+
+    it "should list each user" do
+      User.all.each do |user|
+        expect(page).to have_selector('li', text: user.name)
+      end
+    end
+  end
+  
+  describe "signup page" do
+    before { visit signup_path }
+    
+    it { should have_content('Sign up') }
+    it { should have_title(full_title('Sign up')) }
   end
 
   describe "profile page" do
