@@ -12,5 +12,11 @@ FactoryGirl.define do
     sequence(:email) { |n| "person_#{n}@example.com" }
     password "foobar"
     password_confirmation "foobar"
+
+    factory :admin do
+      # Now calls to FactoryGirl.create :admin will make the above
+      # user as an admin.
+      admin true
+    end
   end
 end
