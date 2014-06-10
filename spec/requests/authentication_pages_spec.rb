@@ -39,6 +39,11 @@ describe "AuthenticationPages" do
     describe "for non-signed in users" do
       let(:user) { FactoryGirl.create(:user) }
 
+      # Exercise 9.3
+      it { should_not have_link "Profile" }
+      it { should_not have_link "Settings" }
+      it { should_not have_link "Account" }
+
       describe "when attempting to visit a protected page" do
         before do
           visit edit_user_path(user)
@@ -90,6 +95,7 @@ describe "AuthenticationPages" do
         end
       end
     end
+    
     describe "as wrong user" do
       let(:user) { FactoryGirl.create(:user) }
       let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }

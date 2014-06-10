@@ -44,7 +44,10 @@ describe "UserPages" do
           end.to change(User, :count).by(-1)
         end   
         it { should_not have_link 'delete', href: user_path(admin) }
-        # Admins can't delete themselves.
+        # Exercise 9.9
+        it "should not allow deleting yourself" do
+          expect { delete user_path(admin) }.not_to change(User, :count)
+        end
       end
     end
 
@@ -60,6 +63,23 @@ describe "UserPages" do
     
     it { should have_content('Sign up') }
     it { should have_title(full_title('Sign up')) }
+
+    # Exercise 9.6.
+    describe "when user is signed in" do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        sign_in user
+        visit signup_path
+        fill_in "Name", with: "Blurgh"
+        fill_in "Email", with: "blurgh@glurgh.com"
+        fill_in "Password", with: "blu"
+        fill_in "Confirm Password", with: "blu"
+        click_button "Create my account"
+      end
+      it { should_not have_title(full_title 'Sign up') }
+      it { should have_title(full_title '') }
+      it { should have_content "Already signed in." }
+    end
   end
 
   describe "profile page" do
@@ -91,7 +111,7 @@ describe "UserPages" do
         fill_in "Name", with: "Example User"
         fill_in "Email", with: "user@example.com"
         fill_in "Password", with: "foobar"
-        fill_in "Confirmation", with: "foobar"
+        fill_in "Confirm Password", with: "foobar"
       end
       it "should add a user" do
         expect { click_button submit }.to change(User, :count).by 1
@@ -142,17 +162,17 @@ describe "UserPages" do
       specify { expect(user.reload.name).to eq new_name }
       specify { expect(user.reload.email).to eq new_email }
     end
-
-    # describe "forbidden attributes" do
-    #   let(:params) do
-    #     { user: { admin: true, password: user.password,
-    #         password_confirmation: user.password } }
-    #   end
-    #   before do
-    #     sign_in user, no_capybara: true
-    #     patch user_path(user), params
-    #   end
-    #   specify { expect(user.reload).not_to be_admin }
-    # end
+    # Exercise 9.1
+    describe "forbidden attributes" do
+      let(:params) do
+        { user: { admin: true, password: user.password,
+            password_confirmation: user.password } }
+      end
+      before do
+        sign_in user, no_capybara: true
+        patch user_path(user), params
+      end
+      specify { expect(user.reload).not_to be_admin }
+    end
   end
 end

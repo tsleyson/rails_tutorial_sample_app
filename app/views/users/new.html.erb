@@ -5,28 +5,13 @@
 <div class="row">
   <div class="span6 offset3">
     <%= form_for @user do |f| %>
-      <%= render 'shared/error_messages' %>
+      <%= render 'fields', f: f %>
+      <!-- render looks for fields.html.erb and renders it, passing f
+      as arg. -->
       <div class="form-group">
-        <%= f.label :name %>
-        <%= f.text_field :name %>
+        <%= f.submit "Create my account",
+                    class: "btn btn-large btn-primary" %>
       </div>
-
-      <div class="form-group">
-        <%= f.label :email %>
-        <%= f.text_field :email %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :password %>
-        <%= f.password_field :password %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :password_confirmation, "Confirmation" %>
-        <%= f.password_field :password_confirmation %>
-      </div>
-
-      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>

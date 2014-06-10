@@ -14,16 +14,21 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    # Rails 4. Rails 3 needs the strong_parameters gem to do this.
-    if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+    unless signed_in? 
+      @user = User.new(user_params)
+      # Rails 4. Rails 3 needs the strong_parameters gem to do this.
+      if @user.save
+        sign_in @user
+        flash[:success] = "Welcome to the Sample App!"
+        redirect_to @user
+      else
+        render 'new' # Reloads signup page with error messages.
+      end
     else
-      render 'new' # Reloads signup page with error messages.
+      redirect_to root_url, notice: "Already signed in."
     end
   end
+    
 
   def edit
   end
@@ -50,13 +55,12 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    # Use strong params. Did not allow setting admin attribute
-    # through a web URL (since admin was not under permit).
+    # Use strong params. Does not allow setting admin attribute
+    # through a web URL (since admin is not under permit).
     # params is a method of the base class AppController.
     # Returns a new params object. 
     params.require(:user).permit(:name, :email, :password,
-                                 :password_confirmation,
-                                 :admin)
+                                 :password_confirmation)
   end
   
   # Before filters

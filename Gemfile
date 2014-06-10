@@ -2,20 +2,14 @@ source 'https://rubygems.org'
 ruby '1.9.3'
 
 gem 'rails', '4.0.2'
-
 gem 'bootstrap-sass'  # Fancier CSS with nesting and variables
 
 #gem 'bcrypt', '~> 3.0.0'
 # Using a newer version causes some conflict with Heroku, so let it
 # use whatever version it wants.
 gem 'bcrypt-ruby', '>= 3.0.0'  # cryptographic hashing
-
-gem 'factory_girl_rails', '>= 4.2.1' # database mock object factory
-
 gem 'protected_attributes'
-
 gem 'faker' # make fake users
-
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
@@ -32,6 +26,7 @@ end
 group :test do
   gem 'selenium-webdriver', '2.35.1'
   gem 'capybara', '2.1.0'
+  gem 'factory_girl_rails', '>= 4.2.1' # database mock object factory
   gem 'launchy'  # permits use of Capybara's save_and_open_page
 end
 
