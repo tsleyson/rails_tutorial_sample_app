@@ -132,6 +132,7 @@ describe User do
     let!(:newer_micropost) do
       FactoryGirl.create(:micropost, user: @user, created_at: 1.hour.ago)
     end
+    # let is lazy; it evaluates when the value is need. let! is eager.
 
     it "should have the right microposts in the right order" do
       expect(@user.microposts.to_a).to eq [newer_micropost, older_micropost]

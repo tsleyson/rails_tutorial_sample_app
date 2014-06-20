@@ -7,8 +7,12 @@ describe Micropost do
     #@micropost = Micropost.new(content: "Lorem ipsum", user_id: user.id)
     # ...because we should create posts through the owning user
     # object. Then it automatically has the right id.
-    @micropost = user.microposts.build(content: "Lorem ipsum")
-    @micropost.content = "Lorem ipsum"
+    @micropost = user.microposts.build do |mp|
+      mp.content = "Lorem ipsum"
+    end
+    # For some unfathomable reason, passing in a hash to set the
+    # content doesn't work. Doing this block initialization works, and
+    # so does just making the object and doing @micropost.content =.
   end
   subject { @micropost }
 
