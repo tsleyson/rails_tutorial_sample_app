@@ -25,6 +25,11 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
+  def feed
+    # Preliminary version. See "Following Users" for full version.
+    Micropost.where("user_id = ?", id)
+  end
+
   private
     def create_remember_token
       # Encrypt a new 16-char string.
