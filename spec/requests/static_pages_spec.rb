@@ -44,6 +44,13 @@ describe "Static pages" do
           expect(page).to have_selector("li##{item.id}", text: item.content)
         end
       end
+
+      # Exercise 10.1
+      it "should show the number of microposts" do
+        expect(page).to have_content "2 microposts"
+        click_link 'delete', :match => :first
+        expect(page).to have_content "1 micropost"
+      end
     end
   end
 
